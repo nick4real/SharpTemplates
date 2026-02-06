@@ -1,8 +1,9 @@
 <Solution>
   <Folder Name="/MicroserviceTemplate/">
+    <File Path="templates/MicroserviceTemplate/.template.config/template.json" />
     <Project Path="templates/MicroserviceTemplate/MSTemplate.API/MSTemplate.API.csproj" />
-    <Project Path="templates/MicroserviceTemplate/MSTemplate.Infrastructure/MSTemplate.Infrastructure.csproj" />
     <Project Path="templates/MicroserviceTemplate/MSTemplate.Application/MSTemplate.Application.csproj" />
     <Project Path="templates/MicroserviceTemplate/MSTemplate.Domain/MSTemplate.Domain.csproj" />
+    <Project Path="templates/MicroserviceTemplate/MSTemplate.Infrastructure/MSTemplate.Infrastructure.csproj" />
   </Folder>
 </Solution>
