@@ -6,6 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<!--#if (EnableScalarSupport) -->
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
+	<PackageReference Include="Scalar.AspNetCore" Version="2.12.18" />
+  </ItemGroup>
+
+    <!--#endif -->
   <ItemGroup>
     <ProjectReference Include="..\MSTemplate.Application\MSTemplate.Application.csproj" />
     <ProjectReference Include="..\MSTemplate.Infrastructure\MSTemplate.Infrastructure.csproj" />

@@ -1,13 +1,53 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "Nick4real",
-  "classifications": [ "Web", "Web API", "API" ],
+  "classifications": [ "Web", "Web API", "API", "MVC" ],
   "identity": "Nick4real.Templates.Microservice",
-  "name": "Clean Architecture microservice",
+  "name": "ASP.NET Microservice",
+  "description": "Template for creating Clean Architecture Web API",
   "shortName": "n4r-microservice",
   "sourceName": "MSTemplate",
   "tags": {
     "language": "C#",
     "type": "project"
+  },
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net10.0",
+          "description": ".NET 10.0"
+        }
+      ],
+      "defaultValue": "net10.0",
+      "replaces": "net10.0"
+    },
+    "EnableScalarSupport": {
+      "type": "parameter",
+      "description": "Enable Scalar support for API overview.",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "httpPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 5000,
+        "high": 5999
+      },
+      "replaces": "${httpPort}"
+    },
+    "httpsPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 7000,
+        "high": 7999
+      },
+      "replaces": "${httpsPort}"
+    }
   }
 }
