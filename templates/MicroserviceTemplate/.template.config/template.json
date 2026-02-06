@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Nick4real",
+  "classifications": [ "Web", "Web API", "API" ],
+  "identity": "Nick4real.Templates.Microservice",
+  "name": "Clean Architecture microservice",
+  "shortName": "n4r-microservice",
+  "sourceName": "MSTemplate",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  }
+}
