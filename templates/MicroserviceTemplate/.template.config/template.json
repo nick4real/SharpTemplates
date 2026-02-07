@@ -50,4 +50,11 @@
       "replaces": "${httpsPort}"
     }
   }
+  "sources": [
+    {
+      "exclude": [
+        "Directory.Build.props"
+      ]
+    }
+  ]
 }
