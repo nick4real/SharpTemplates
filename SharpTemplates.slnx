@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Docs/">
+    <File Path="docs/microservice.md" />
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/MicroserviceTemplate/">
     <File Path="templates/MicroserviceTemplate/.template.config/template.json" />
     <File Path="templates/MicroserviceTemplate/Directory.Build.props" />
