@@ -12,6 +12,7 @@
     "type": "project"
   },
   "symbols": {
+    // Frameworks
     "Framework": {
       "type": "parameter",
       "description": "The target framework for the project.",
@@ -25,12 +26,23 @@
       "defaultValue": "net10.0",
       "replaces": "net10.0"
     },
+    // Scalar support
     "EnableScalarSupport": {
       "type": "parameter",
+      "displayName": "Enable Scalar support",
       "description": "Enable Scalar support for API overview.",
       "datatype": "bool",
       "defaultValue": "true"
     },
+    // Sample logic
+    "IncludeSampleLogic": {
+      "type": "parameter",
+      "displayName": "Include sample logic",
+      "description": "Create simple logic to projects.",
+      "datatype": "bool",
+      "defaultValue": "false"
+    },
+    // Generators
     "httpPort": {
       "type": "generated",
       "generator": "port",
@@ -49,11 +61,29 @@
       },
       "replaces": "${httpsPort}"
     }
-  }
+  },
   "sources": [
     {
       "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".vs/**",
+        ".git/**",
         "Directory.Build.props"
+      ],
+      "modifiers": [
+        {
+          "condition": "(!IncludeSampleLogic)",
+          "exclude": [
+            "MSTemplate.Domain/Entities/WeatherForecast.cs",
+            "MSTemplate.Application/DTOs/WeatherForecastDto.cs",
+            "MSTemplate.Application/Interfaces/Repositories/IWeatherForecastRepository.cs",
+            "MSTemplate.Application/Interfaces/Services/IWeatherForecastService.cs",
+            "MSTemplate.Application/Services/WeatherForecastService.cs",
+            "MSTemplate.Infrastructure/Persistence/Repositories/WeatherForecastRepository.cs",
+            "MSTemplate.API/Controllers/WeatherForecastController.cs"
+          ]
+        }
       ]
     }
   ]

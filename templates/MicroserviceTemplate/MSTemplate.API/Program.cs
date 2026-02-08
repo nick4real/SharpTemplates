@@ -10,8 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 
-#if (EnableScalarSupport)
+#if EnableScalarSupport
 // OpenAPI support
 builder.Services.AddOpenApi();
 
@@ -19,7 +20,10 @@ builder.Services.AddOpenApi();
 // Application
 var app = builder.Build();
 
-#if (EnableScalarSupport)
+app.MapControllers();
+app.MapHealthChecks("/health");
+
+#if EnableScalarSupport
 if (!app.Environment.IsProduction())
 {
     app.MapOpenApi();
