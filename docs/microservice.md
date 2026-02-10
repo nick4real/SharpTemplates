@@ -15,6 +15,7 @@ Template for creating a Clean Architecture–style ASP.NET Core Web API project.
 |---|---|---|---|
 | `Framework` | choice | `net10.0` | Target framework (currently .NET 10.0). |
 | `EnableScalarSupport` | bool | `true` | Enables OpenAPI + Scalar API reference integration. |
+| `EnableHttpsRedirection` | bool | `true` | Enables HTTPS redirection middleware. |
 | `IncludeSampleLogic` | bool | `false` | Includes the WeatherForecast sample controller, DTOs, services, and repository. |
 
 ### Generated values
@@ -24,10 +25,12 @@ Template for creating a Clean Architecture–style ASP.NET Core Web API project.
 
 | Library | Where used | Purpose |
 |---|---|---|
-| `Microsoft.AspNetCore.OpenApi` | API | OpenAPI/Swagger support |
 | `Scalar.AspNetCore` | API | Scalar API reference UI |
+| `Microsoft.AspNetCore.OpenApi` | API | OpenAPI/Swagger support |
+| `Microsoft.EntityFrameworkCore` | Infrastructure | EF Core ORM |
 | `Microsoft.AspNetCore.Http` | Application | HTTP abstractions |
 | `Microsoft.Extensions.DependencyInjection` | Application | DI abstractions |
+
 
 ## Patterns used
 
