@@ -34,6 +34,13 @@
       "datatype": "bool",
       "defaultValue": "true"
     },
+    // Https redirection
+    "EnableHttpsRedirection": {
+      "type": "parameter",
+      "displayName": "Enable Https redirection",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
     // Sample logic
     "IncludeSampleLogic": {
       "type": "parameter",

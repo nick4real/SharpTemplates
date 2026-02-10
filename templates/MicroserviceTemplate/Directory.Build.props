@@ -1,5 +1,5 @@
 <Project>
   <PropertyGroup>
-    <DefineConstants>EnableScalarSupport;IncludeSampleLogic</DefineConstants>
+    <DefineConstants>EnableScalarSupport;IncludeSampleLogic;EnableHttpsRedirection</DefineConstants>
   </PropertyGroup>
 </Project>

@@ -20,6 +20,14 @@ builder.Services.AddOpenApi();
 // Application
 var app = builder.Build();
 
+app.UseExceptionHandler();
+#if EnableHttpsRedirection
+app.UseHttpsRedirection();
+#endif
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 app.MapHealthChecks("/health");
 
