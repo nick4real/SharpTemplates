@@ -35,15 +35,15 @@
       "choices": [
         {
           "choice": "Ensure",
-          "description": "Ensure Created Strategy"
+          "displayName": "Ensure Strategy"
         },
         {
           "choice": "AutoMigration",
-          "description": "Auto-Migration Strategy"
+          "displayName": "Auto-Migration Strategy"
         },
         {
           "choice": "None",
-          "description": "None"
+          "displayName": "None"
         }
       ],
       "defaultValue": "None"
