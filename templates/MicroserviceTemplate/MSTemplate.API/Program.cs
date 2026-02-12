@@ -1,6 +1,6 @@
 using MSTemplate.Infrastructure;
 using MSTemplate.Application;
-#if (EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy)
+#if (DirectDatabaseStrategy || AutoMigrationDatabaseStrategy)
 using Microsoft.EntityFrameworkCore;
 using MSTemplate.Infrastructure.Persistence;
 #endif
@@ -44,7 +44,7 @@ if (!app.Environment.IsProduction())
 }
 
 #endif
-#if (EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy)
+#if (DirectDatabaseStrategy || AutoMigrationDatabaseStrategy)
 // Database initialization
 await using (var serviceScope = app.Services.CreateAsyncScope())
 await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>())
@@ -80,7 +80,7 @@ await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<App
         }
     });
 #endif
-#if (EnsuredDatabaseStrategy)
+#if (DirectDatabaseStrategy)
     await executionStrategy.ExecuteAsync(async () =>
     {
         await dbContext.Database.EnsureDeletedAsync();

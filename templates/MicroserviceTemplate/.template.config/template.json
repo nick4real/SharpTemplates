@@ -34,8 +34,8 @@
       "datatype": "choice",
       "choices": [
         {
-          "choice": "Ensure",
-          "displayName": "Ensure Strategy"
+          "choice": "Direct",
+          "displayName": "Direct Strategy"
         },
         {
           "choice": "AutoMigration",
@@ -91,9 +91,9 @@
       "replaces": "${httpsPort}"
     },
     // Mapped choices
-    "EnsuredDatabaseStrategy": {
+    "DirectDatabaseStrategy": {
       "type": "computed",
-      "value": "(DatabaseStrategy == \"Ensure\")"
+      "value": "(DatabaseStrategy == \"Direct\")"
     },
     "AutoMigrationDatabaseStrategy": {
       "type": "computed",
