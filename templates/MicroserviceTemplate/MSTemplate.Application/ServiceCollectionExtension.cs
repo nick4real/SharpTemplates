@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-#if IncludeSampleLogic
+#if (IncludeSampleLogic)
 using MSTemplate.Application.Interfaces.Services;
 using MSTemplate.Application.Services;
 #endif
@@ -12,7 +12,7 @@ public static class ServiceCollectionExtension
     {
         public IServiceCollection AddApplication()
         {
-#if IncludeSampleLogic
+#if (IncludeSampleLogic)
             //Services
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 

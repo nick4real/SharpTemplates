@@ -1,10 +1,10 @@
 using MSTemplate.Infrastructure;
 using MSTemplate.Application;
-#if EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy
+#if (EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy)
 using Microsoft.EntityFrameworkCore;
 using MSTemplate.Infrastructure.Persistence;
 #endif
-#if EnableScalarSupport
+#if (EnableScalarSupport)
 using Scalar.AspNetCore;
 #endif
 
@@ -16,7 +16,7 @@ builder.Services.AddInfrastructure();
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
 
-#if EnableScalarSupport
+#if (EnableScalarSupport)
 // OpenAPI support
 builder.Services.AddOpenApi();
 
@@ -25,7 +25,7 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 app.UseExceptionHandler();
-#if EnableHttpsRedirection
+#if (EnableHttpsRedirection)
 app.UseHttpsRedirection();
 #endif
 app.UseRouting();
@@ -35,7 +35,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
 
-#if EnableScalarSupport
+#if (EnableScalarSupport)
 if (!app.Environment.IsProduction())
 {
     app.MapOpenApi();
@@ -44,17 +44,17 @@ if (!app.Environment.IsProduction())
 }
 
 #endif
-#if EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy
+#if (EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy)
 // Database initialization
 await using (var serviceScope = app.Services.CreateAsyncScope())
 await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>())
 {
-    var executionStrategy = dbContext.Database.CreateExecutionStrategy();
-
     if (!app.Environment.IsDevelopment())
         return;
 
-#if AutoMigrationDatabaseStrategy
+    var executionStrategy = dbContext.Database.CreateExecutionStrategy();
+
+#if (AutoMigrationDatabaseStrategy)
     await executionStrategy.ExecuteAsync(async () =>
     {
         // Make sure the database exists so migration history can be queried
@@ -72,7 +72,7 @@ await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<App
         if (hasPending)
         {
             await dbContext.Database.MigrateAsync();
-        }
+        }   
         else if (hasUnknownApplied)
         {
             await dbContext.Database.EnsureDeletedAsync();
@@ -80,7 +80,7 @@ await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<App
         }
     });
 #endif
-#if EnsuredDatabaseStrategy
+#if (EnsuredDatabaseStrategy)
     await executionStrategy.ExecuteAsync(async () =>
     {
         await dbContext.Database.EnsureDeletedAsync();
