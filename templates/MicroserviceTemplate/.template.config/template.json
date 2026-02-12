@@ -26,6 +26,28 @@
       "defaultValue": "net10.0",
       "replaces": "net10.0"
     },
+    // Database creation strategies
+    "DatabaseStrategy": {
+      "type": "parameter",
+      "displayName": "Database strategy",
+      "description": "Defines how database creation status should be verified.",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "Ensure",
+          "description": "Ensure Created Strategy"
+        },
+        {
+          "choice": "AutoMigration",
+          "description": "Auto-Migration Strategy"
+        },
+        {
+          "choice": "None",
+          "description": "None"
+        }
+      ],
+      "defaultValue": "None"
+    },
     // Scalar support
     "EnableScalarSupport": {
       "type": "parameter",
@@ -67,6 +89,15 @@
         "high": 7999
       },
       "replaces": "${httpsPort}"
+    },
+    // Mapped choices
+    "EnsuredDatabaseStrategy": {
+      "type": "computed",
+      "value": "(DatabaseStrategy == \"Ensure\")"
+    },
+    "AutoMigrationDatabaseStrategy": {
+      "type": "computed",
+      "value": "(DatabaseStrategy == \"AutoMigration\")"
     }
   },
   "sources": [
@@ -76,6 +107,7 @@
         "**/[Oo]bj/**",
         ".vs/**",
         ".git/**",
+        ".template.config/**",
         "Directory.Build.props"
       ],
       "modifiers": [

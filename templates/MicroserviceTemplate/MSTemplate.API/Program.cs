@@ -1,6 +1,10 @@
 using MSTemplate.Infrastructure;
 using MSTemplate.Application;
-#if (EnableScalarSupport)
+#if EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy
+using Microsoft.EntityFrameworkCore;
+using MSTemplate.Infrastructure.Persistence;
+#endif
+#if EnableScalarSupport
 using Scalar.AspNetCore;
 #endif
 
@@ -37,6 +41,52 @@ if (!app.Environment.IsProduction())
     app.MapOpenApi();
     // Map the Scalar API reference endpoint
     app.MapScalarApiReference();
+}
+
+#endif
+#if EnsuredDatabaseStrategy || AutoMigrationDatabaseStrategy
+// Database initialization
+await using (var serviceScope = app.Services.CreateAsyncScope())
+await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>())
+{
+    var executionStrategy = dbContext.Database.CreateExecutionStrategy();
+
+    if (!app.Environment.IsDevelopment())
+        return;
+
+#if AutoMigrationDatabaseStrategy
+    await executionStrategy.ExecuteAsync(async () =>
+    {
+        // Make sure the database exists so migration history can be queried
+        await dbContext.Database.EnsureCreatedAsync();
+
+        var allMigrations = dbContext.Database.GetMigrations().ToList();
+        var appliedMigrations = (await dbContext.Database.GetAppliedMigrationsAsync()).ToList();
+
+        // Mismatch if:
+        // 1) there are pending migrations, OR
+        // 2) DB has migrations not present in code (e.g. due to branch switch)
+        var hasPending = allMigrations.Except(appliedMigrations).Any();
+        var hasUnknownApplied = appliedMigrations.Except(allMigrations).Any();
+
+        if (hasPending)
+        {
+            await dbContext.Database.MigrateAsync();
+        }
+        else if (hasUnknownApplied)
+        {
+            await dbContext.Database.EnsureDeletedAsync();
+            await dbContext.Database.MigrateAsync();
+        }
+    });
+#endif
+#if EnsuredDatabaseStrategy
+    await executionStrategy.ExecuteAsync(async () =>
+    {
+        await dbContext.Database.EnsureDeletedAsync();
+        await dbContext.Database.EnsureCreatedAsync();
+    });
+#endif
 }
 
 #endif
